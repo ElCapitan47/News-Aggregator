@@ -7,11 +7,22 @@ export const MakeRequest = async({query,page, newsDesk, source,sort, beginDate, 
     let url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${query}&page=${page}&api-key=${api_key}`;
 
     // Add newsdesk to the URL if it's not an empty string
-    url += `&fq=news_desk:("${newsDesk}")`;
+    // url += `&fq=news_desk:("${newsDesk}")`;
+    if (newsDesk && newsDesk.trim() !== "") {
+      url += `&fq=news_desk:(${newsDesk})`;
+    }
 
     // Add source to the URL if it's not an empty string
     if (source && source.trim() !== "") {
-      url += `AND source:(${source})`;
+      if(newsDesk && newsDesk.trim() !== "")
+      {
+        url += `AND source:(${source})`;
+      }
+      else
+      {
+        url += `&fq=source:(${source})`;
+      }
+      
     }
 
     // Add sort if it's not an empty string
