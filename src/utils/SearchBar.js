@@ -27,7 +27,7 @@ const SearchBarComponent = () => {
   const [sort, setSort]= useState("")
  
  
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate] = useState(new Date());
   const defaultBeginDate= DateConstructor({inputDate: selectedDate})
   const defaultEndDate= DateConstructor({inputDate: selectedDate})
   // console.log(defaultBeginDate)
@@ -65,6 +65,8 @@ const SearchBarComponent = () => {
     }
     
   },[endDate])
+ 
+   
   // useEffect(()=>{
   //   // console.log(data);
   // },[data])
@@ -78,7 +80,7 @@ const SearchBarComponent = () => {
     {
       SearchResults();
     }
-   
+   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[curPage])
   const SearchResults= async()=>{
     
@@ -103,7 +105,8 @@ const SearchBarComponent = () => {
     } finally {
       setIsLoading(false);
     }
-   
+
+ 
    
   
     // const response= await MakeRequest({query: searchItem, page: curPage, source:source, newsDesk:newsDesk, sort: sort, beginDate: parsedBeginDate, endDate: parsedEndDate});

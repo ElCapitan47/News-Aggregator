@@ -1,6 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
+
 import { api_key } from './config'
 
 export const MakeRequest = async({query,page, newsDesk, source,sort, beginDate, endDate}) => {
@@ -47,7 +45,7 @@ export const MakeRequest = async({query,page, newsDesk, source,sort, beginDate, 
 
     if (response.status === 429) {
       console.error('Error during request: Too many requests');
-      throw new Error('Too many requests! Try again after a few seconds');
+      throw new Error('Too many requests! Rate-limit exceeded. Try again after some time');
     }
 
 
