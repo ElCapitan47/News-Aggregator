@@ -25,7 +25,7 @@ const SearchBarComponent = () => {
   const [source, setSource]= useState("")
   const [newsDesk, setNewsDesk]= useState("")
   const [sort, setSort]= useState("")
- 
+  const [isInitialLoading, setIsInitialLoading]= useState(true)
  
   const [selectedDate] = useState(new Date());
   const defaultBeginDate= DateConstructor({inputDate: selectedDate})
@@ -44,6 +44,11 @@ const SearchBarComponent = () => {
   
   const [data, setData]= useState({})
   const isInitialRender = useRef(true)
+
+  useEffect(()=>{
+    SearchDefaultResults();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
  
   useEffect(()=>{
     // console.log(beginDate);
@@ -82,6 +87,28 @@ const SearchBarComponent = () => {
     }
    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[curPage])
+
+  const SearchDefaultResults= async()=>{
+    setIsInitialLoading(true);
+    try {
+      const response = await MakeRequest({
+        query: searchItem,
+        page: curPage,
+        source: source,
+        newsDesk: newsDesk,
+        sort: sort,
+        beginDate: defaultBeginDate,
+        endDate: defaultEndDate,
+      });
+      setData(response);
+    } catch (error) {
+      console.error('Error during request:', error.message);
+      alert(`An error occurred: ${error.message}`);
+      // Handle the error, e.g., show an error message to the user
+    } finally {
+      setIsInitialLoading(false);
+    }
+  }
   const SearchResults= async()=>{
     
     //fetch data from third party API
@@ -147,20 +174,40 @@ const SearchBarComponent = () => {
       
       </div>
       {/* Filter Form */}
-      <div>
+      <div className='px-3'>
         <form>
-          <div className=''>
-            <div>
+          <div className='space-y-1'>
+            <div className='space-y-1'>
               <FormLabel>Filter by:</FormLabel>
-              <div className="space-y-4">
-                <TextField
-                  label="Source"
-                  variant="outlined"
-                  placeholder="Try 'The New York Times' or Try 'AP'"
-                  fullWidth
-                  value={source}
-                  onChange={(e) => setSource(e.target.value)}
-                />
+              <div className="flex items-center justify-between">
+                {/* Remove TextField for "Source" */}
+                {/* Add FormControl and two FormControlLabel for the options */}
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Source:</FormLabel>
+                  <div className="flex">
+                    <FormControlLabel
+                      value="The New York Times"
+                      control={<Radio />}
+                      label="The New York Times"
+                      checked={source === "The New York Times"}
+                      onChange={() => setSource("The New York Times")}
+                    />
+                    <FormControlLabel
+                      value="AP"
+                      control={<Radio />}
+                      label="AP"
+                      checked={source === "AP"}
+                      onChange={() => setSource("AP")}
+                    />
+                    <FormControlLabel
+                      value=""
+                      control={<Radio />}
+                      label="None"
+                      checked={source === ""}
+                      onChange={() => setSource("")}
+                    />
+                  </div>
+                </FormControl>
                 <FormControl component="fieldset">
                   <FormLabel component="legend">Section:</FormLabel>
                   <RadioGroup
@@ -289,7 +336,28 @@ const SearchBarComponent = () => {
                 </div>
               </div>
             ) : 
-            <div className='text-3xl flex items-center justify-center'>{isInitial ? 'No results to be shown. Try typing in something...': <CircularProgress color="inherit" />}  </div>
+            <div className='text-3xl flex items-center justify-center'>{isInitial ? (!isInitialLoading ? <div className='space-y-10'>
+              <div className='flex items-center justify-between'>
+                      <div className='text-lg'>Top News Today</div>
+              </div>
+              <div className='space-y-5'>
+                      {data.docs.slice(0, 10).map((doc, index) => (
+                        <SearchCardComponent
+                          key={index}
+                          title={doc.headline.main}
+                          byline={doc.byline.original}
+                          abstract={doc.abstract}
+                          url={doc.web_url}
+                          source={doc.source}
+                          pub_date={doc.pub_date}
+                          lead_para={doc.lead_paragraph}
+                          imgUrl={doc.multimedia?.[0]?.url ?
+                            `https://nytimes.com/${doc.multimedia[0].url}` : 
+                            'https://upload.wikimedia.org/wikipedia/commons/4/40/New_York_Times_logo_variation.jpg'}
+                        />
+                      ))}
+                    </div>
+            </div>: <CircularProgress color="inherit" />): <CircularProgress color="inherit" />}  </div>
         }
 
       </div>
