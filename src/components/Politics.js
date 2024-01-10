@@ -12,8 +12,6 @@ const PoliticsComponent = () => {
         
             const getData= async()=>{
                 const response= await MakeTopNewsRequest({field: 'politics'})
-                // setData(... response)
-                //console.log(response);
                 setData(response)
                 setIsLoading(false)
 

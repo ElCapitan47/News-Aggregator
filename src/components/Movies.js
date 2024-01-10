@@ -14,8 +14,6 @@ const MoviesComponent = () => {
         
             const getData= async()=>{
                 const response= await MakeTopNewsRequest({field: 'movies'})
-                // setData(... response)
-                //console.log(response);
                 setData(response)
                 setIsLoading(false)
 

@@ -15,8 +15,6 @@ const HomeComponent =()=>{
        
             const getData= async()=>{
                 const response= await MakeTopNewsRequest({field: 'politics'})
-                // setData(... response)
-                //console.log(response);
                 setPolData(response)
                 setIsPolLoading(false)
     
@@ -36,8 +34,6 @@ const HomeComponent =()=>{
        
             const getData= async()=>{
                 const response= await MakeTopNewsRequest({field: 'business'})
-                // setData(... response)
-                //console.log(response);
                 setBusData(response)
                 setIsBusLoading(false)
     
@@ -55,8 +51,6 @@ const HomeComponent =()=>{
        
             const getData= async()=>{
                 const response= await MakeTopNewsRequest({field: 'technology'})
-                // setData(... response)
-                //console.log(response);
                 setTechData(response)
                 setIsTechLoading(false)
     
@@ -74,8 +68,6 @@ const HomeComponent =()=>{
        
             const getData= async()=>{
                 const response= await MakeTopNewsRequest({field: 'movies'})
-                // setData(... response)
-                //console.log(response);
                 setMovieData(response)
                 setIsMovieLoading(false)
     
@@ -85,24 +77,7 @@ const HomeComponent =()=>{
 
         
     },[])
-    // useEffect(() => {
-    //     console.log(moviedata);
-    //   }, [moviedata]);
-
-    // useEffect(()=>{
-    //     fields.map((item)=>{
-    //         const getData=async()=>{
-    //             const response= await MakeTopNewsRequest(item)
-    //             setData(... response)
-    
-    //         }
-    //         getData()
-
-    //     })
-    //     setIsLoading(false)
-    //     console.log(data);
-    // },[])
-
+   
     return(
         <LayoutComponent curWindow={'home'}>
             {
@@ -187,26 +162,6 @@ const HomeComponent =()=>{
  
                 </div>
               
-
-                // <div className="h-full w-full">
-                //     <div className="space-y-5">
-                //         <div className="w-full text-2xl bg-app-black text-white font-semibold flex items-center justify-center">
-                //         Politics
-                //         </div>
-                //         <div className="flex w-full space-x-5">
-                //         {poldata.results.map((result, index) => (
-                //             <div key={index} className="flex w-1/2">
-                //             <CardComponent
-                //                 title={result.title}
-                //                 img={result.multimedia[1].url}
-                //                 abstract={result.abstract}
-                //                 byline={result.byline}
-                //             />
-                //             </div>
-                //         ))}
-                //         </div>
-                //     </div>
-                // </div>
 
             }
             

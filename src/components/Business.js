@@ -13,8 +13,6 @@ const BusinessComponent = () => {
         
             const getData= async()=>{
                 const response= await MakeTopNewsRequest({field: 'business'})
-                // setData(... response)
-                //console.log(response);
                 setData(response)
                 setIsLoading(false)
 

@@ -4,7 +4,7 @@ import { DateDeconstructor } from './DateDeconstructor'
 
 const SearchCardComponent = ({title,byline,abstract,url,source,pub_date, lead_para, imgUrl}) => {
   const dateTime= DateDeconstructor({dateString: pub_date});
-  // console.log(dateTime);
+ 
   return (
   
     <Link to={url} as='div' target='_blank' className='block flex w-full space-x-2 p-5 border border-white bg-app-black rounded-lg cursor-pointer'>

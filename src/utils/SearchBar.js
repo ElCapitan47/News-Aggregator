@@ -16,7 +16,7 @@ import { DateConstructor } from './DateConstructor'
 
 
 const SearchBarComponent = () => {
-  //parse selected date and give it as initial value
+  
   
   const [isInitial, setIsInitial]=useState(true)
   const [isLoading, setIsLoading]= useState(true)
@@ -30,16 +30,13 @@ const SearchBarComponent = () => {
   const [selectedDate] = useState(new Date());
   const defaultBeginDate= DateConstructor({inputDate: selectedDate})
   const defaultEndDate= DateConstructor({inputDate: selectedDate})
-  // console.log(defaultBeginDate)
-  // console.log(defaultEndDate)
+  
   const [beginDate, setBeginDate]= useState("")
   const [endDate, setEndDate]= useState("")
-  // console.log(beginDate)
-  // console.log(endDate)
+  
   const [parsedBeginDate, setParsedBeginDate]= useState(defaultBeginDate)
   const [parsedEndDate, setParsedEndDate]= useState(defaultEndDate);
-  // console.log(parsedBeginDate)
-  // console.log(parsedEndDate)
+  
 
   
   const [data, setData]= useState({})
@@ -51,30 +48,26 @@ const SearchBarComponent = () => {
   },[])
  
   useEffect(()=>{
-    // console.log(beginDate);
+    
     if(beginDate!=="")
     {
       const formattedbeginDate= DateConstructor({inputDate: beginDate})
-      // console.log(formattedbeginDate)
       setParsedBeginDate(formattedbeginDate);
     }
    
   },[beginDate])
   useEffect(()=>{
-    // console.log(endDate);
+    
     if(endDate!=="")
     {
       const formattedendDate= DateConstructor({inputDate: endDate})
-      // console.log(formattedendDate)
       setParsedEndDate(formattedendDate);
     }
     
   },[endDate])
  
    
-  // useEffect(()=>{
-  //   // console.log(data);
-  // },[data])
+  
 
   useEffect(()=>{
     if(isInitialRender.current)
@@ -104,14 +97,14 @@ const SearchBarComponent = () => {
     } catch (error) {
       console.error('Error during request:', error.message);
       alert(`An error occurred: ${error.message}`);
-      // Handle the error, e.g., show an error message to the user
+      
     } finally {
       setIsInitialLoading(false);
     }
   }
   const SearchResults= async()=>{
     
-    //fetch data from third party API
+    
     setIsInitial(false);
     setIsLoading(true);
     try {
@@ -128,22 +121,10 @@ const SearchBarComponent = () => {
     } catch (error) {
       console.error('Error during request:', error.message);
       alert(`An error occurred: ${error.message}`);
-      // Handle the error, e.g., show an error message to the user
+      
     } finally {
       setIsLoading(false);
     }
-
- 
-   
-  
-    // const response= await MakeRequest({query: searchItem, page: curPage, source:source, newsDesk:newsDesk, sort: sort, beginDate: parsedBeginDate, endDate: parsedEndDate});
-    // setData(response);
-    // setIsLoading(false);
-    
-    // setSearchItem('')
-      
-
-     
 
   }
   return (
@@ -166,7 +147,7 @@ const SearchBarComponent = () => {
             {
               setCurPage(0);
             }
-            // SearchResults();
+            
             
            }
          }} ></input>
@@ -180,8 +161,7 @@ const SearchBarComponent = () => {
             <div className='space-y-1'>
               <FormLabel>Filter by:</FormLabel>
               <div className="flex items-center justify-between">
-                {/* Remove TextField for "Source" */}
-                {/* Add FormControl and two FormControlLabel for the options */}
+              
                 <FormControl component="fieldset">
                   <FormLabel component="legend">Source:</FormLabel>
                   <div className="flex">

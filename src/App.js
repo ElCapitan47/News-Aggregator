@@ -9,7 +9,7 @@ import BusinessComponent from "./components/Business";
 import MoviesComponent from "./components/Movies";
 
 
-//Browser Router is inside App
+
 function App() {
   
  
